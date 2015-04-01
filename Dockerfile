@@ -14,6 +14,3 @@ RUN sudo npm install -g n
 RUN sudo n stable
 
 RUN npm install pm2@latest -g
-
-ENTRYPOINT ["/bin/bash", "-c"]
-CMD ["pm2 updatePM2; /bin/bash"]

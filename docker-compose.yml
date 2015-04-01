@@ -4,4 +4,9 @@ app:
     - /home/david/Desktop/apps:/apps
   ports:
     - "8000:8000"
-  command:  pm2 start /apps/app.js --watch -i 0 --no-daemon
+  command: pm2 start /apps/app.js --watch -i 0 --no-daemon
+  links:
+    - db  
+
+db:
+  image: tutum/mongodb
