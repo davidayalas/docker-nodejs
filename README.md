@@ -1,24 +1,29 @@
-#Docker NodeJS PaaS
+#Docker Node.js
 
-Base image to run NodeJS with PM2 to manage common operations and supervision over applications.
+Base image to run Node.js with PM2 to manage common operations and supervision over applications.
 
-#Basic usage
+#Get image
 
-		sudo docker run -it -p 8000:8000 nodepaas
+		$ sudo docker pull davidayalas/docker-nodejs
 
-With this command you get a shell to start configuring one app or multiple nodejs apps. 
+#Basic use
 
+		$ sudo docker run -it -p 8000:8000 davidayalas/docker-nodejs
 
-#Start an application
+With this command you will get a shell. From here, you can start as many applications as you want with _**pm2 start [application].js**_.
 
-		sudo docker run -d -p 8000:8000 --name nodepaas -v /host_apps/apps:/apps nodepaas pm2 start /apps/app.js --watch -i 0 --no-daemon
+Then, you can manage your applications with PM2 (https://github.com/Unitech/PM2/blob/master/README.md).
+
+#Start an application on container run
+
+		$ sudo docker run -d -p 8000:8000 --name mynodejsapp -v /host_apps/apps:/apps davidayalas/docker-nodejs pm2 start /apps/app.js --watch -i 0 --no-daemon
 
 #Sample use in docker-compose
 
 		app:
-		  build: .
+		  build: . # Dockerfile https://github.com/davidayalas/docker-nodejs/blob/master/Dockerfile
 		  volumes:
-		    - /home/david/Desktop/apps:/apps
+		    - /hostapps/apps:/apps
 		  ports:
 		    - "8000:8000"
 		  command: pm2 start /apps/app.js --watch -i 0 --no-daemon
@@ -30,4 +35,4 @@ With this command you get a shell to start configuring one app or multiple nodej
 
 #No daemon
 
-If you start container with an app directly, is important to pass --no-daemon argument to the command, in "docker run" or docker-compose.yml file.
+If you start container with an app directly (in docker command line or in docker-compose yaml file), is important to pass _**--no-daemon**_ argument to avoid exit the container.
