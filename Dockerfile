@@ -10,4 +10,4 @@ RUN curl -sL https://deb.nodesource.com/setup_4.x | sudo bash -
 
 RUN sudo apt-get update && sudo apt-get install -y nodejs
 
-RUN npm install pm2@latest -g
+RUN npm install pm2 -g
